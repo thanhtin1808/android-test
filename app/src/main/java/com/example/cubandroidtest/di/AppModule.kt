@@ -1,6 +1,6 @@
 package com.example.cubandroidtest.di
 
-import NewsRepositoryImpl
+import com.example.cubandroidtest.repository.NewsRepositoryImpl
 import com.example.cubandroidtest.BuildConfig
 import com.example.cubandroidtest.data.remote.ApiService
 import com.example.cubandroidtest.repository.NewsRepository

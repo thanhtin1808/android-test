@@ -16,35 +16,20 @@ class HomeViewModel @Inject constructor(
     private val _newsList = MutableLiveData<List<NewsArticle>>()
     val newsList: LiveData<List<NewsArticle>> = _newsList
 
+    init {
+        fetchNews()
+    }
 
-    fun fetchNews() {
+    private fun fetchNews() {
         launchSafe {
-            val result = repository.getNewsList()
+            val result = repository.getNewsList(keyword = "bbc")
 
             handleResult(result, onSuccess = { articles ->
                 _newsList.value = articles
             }, onError = {
-                _newsList.value = getFallbackNews()
+                _newsList.value = emptyList()
             })
         }
     }
-
-    private fun getFallbackNews() = listOf(
-        NewsArticle(
-            title = "Spyware Maker NSO Group is Paving a Path Back into Trump's America",
-            urlToImage = "https://biztoc.com/cdn/931/og.png",
-            content = "The Israeli spyware maker, still on the US Commerce Department's bla...",
-        ),
-        NewsArticle(
-            title = "Spyware Maker NSO Group is Paving a Path Back into Trump's America",
-            urlToImage = "",
-            content = "The Israeli spyware maker, still on the US Commerce Department's bla...",
-        ),
-        NewsArticle(
-            title = "Spyware Maker NSO Group is Paving a Path Back into Trump's America",
-            urlToImage = "https://blogger.googleusercontent.com/img/a/AVvXsEj_CyaABeyGjA0Ll_8pZtRLfDgAp-WXQ_Ds-AMmavEo0GqpCzF1LlqyvutvjapUNIVeCL7WY2f8eXU67JktzZ5jecdY14eWUvMXfYCTQdwHU8Pl-DFb41HL1nrVr8YCsh6UYjSY6TJH7jXLdoGQ2QdE4ZY734fzyJzrfWEI1pSc81Qv0OpdITrVRpEgYJU=w640-h358",
-            content = "The Israeli spyware maker, still on the US Commerce Department's bla...",
-        ),
-    )
 }
 

@@ -9,7 +9,9 @@ import com.bumptech.glide.Glide
 import com.example.cubandroidtest.data.model.NewsArticle
 import com.example.cubandroidtest.databinding.ItemNewsArticleBinding
 
-class NewsArticleAdapter : ListAdapter<NewsArticle, NewsArticleAdapter.NewsArticleViewHolder>(UserDiffCallback()) {
+class NewsArticleAdapter(
+    private val onItemClick: (NewsArticle) -> Unit,
+) : ListAdapter<NewsArticle, NewsArticleAdapter.NewsArticleViewHolder>(UserDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsArticleViewHolder {
         val binding = ItemNewsArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -32,6 +34,12 @@ class NewsArticleAdapter : ListAdapter<NewsArticle, NewsArticleAdapter.NewsArtic
                     .placeholder(android.R.drawable.ic_menu_gallery) // Placeholder while loading
                     .error(android.R.drawable.ic_menu_report_image) // Error image if loading fails
                     .into(binding.ivIcon)
+            } ?: run {
+                // If no image URL, set a default placeholder or hide the ImageView
+                binding.ivIcon.setImageResource(android.R.drawable.ic_menu_gallery)
+            }
+            binding.clParent.setOnClickListener {
+                onItemClick(new)
             }
         }
     }
