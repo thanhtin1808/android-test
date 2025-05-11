@@ -1,9 +1,9 @@
 package com.example.cubandroidtest.di
 
+import com.example.cubandroidtest.repository.NewsRepositoryImpl
 import com.example.cubandroidtest.BuildConfig
 import com.example.cubandroidtest.data.remote.ApiService
 import com.example.cubandroidtest.repository.NewsRepository
-import com.example.cubandroidtest.repository.NewsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

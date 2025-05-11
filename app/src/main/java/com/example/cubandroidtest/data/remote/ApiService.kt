@@ -6,10 +6,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
-    @GET("v2/top-headlines")
+    @GET("v2/everything")
     suspend fun getNewsList(
+        @Query("q") keyword: String = "",
         @Query("language") language: String = "en",
-        @Query("country") country: String? = "us",
         @Query("pageSize") pageSize: Int = 20,
         @Query("page") page: Int = 1
     ): BaseResponse<List<NewsArticle>>

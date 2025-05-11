@@ -9,8 +9,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class FirstViewModel @Inject constructor(
-    private val repository: NewsRepository
+class HomeViewModel @Inject constructor(
+    private val repository: NewsRepository,
 ) : BaseViewModel() {
 
     private val _newsList = MutableLiveData<List<NewsArticle>>()
@@ -22,8 +22,14 @@ class FirstViewModel @Inject constructor(
 
     private fun fetchNews() {
         launchSafe {
-            val response = repository.getNewsList()
-                _newsList.value = response.orEmpty()
-            }
+            val result = repository.getNewsList(keyword = "bbc")
+
+            handleResult(result, onSuccess = { articles ->
+                _newsList.value = articles
+            }, onError = {
+                _newsList.value = emptyList()
+            })
+        }
     }
 }
+
