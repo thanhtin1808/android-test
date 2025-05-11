@@ -9,7 +9,6 @@ interface ApiService {
     @GET("v2/top-headlines")
     suspend fun getNewsList(
         @Query("language") language: String = "en",
-        @Query("country") country: String? = "us",
         @Query("pageSize") pageSize: Int = 20,
         @Query("page") page: Int = 1
     ): BaseResponse<List<NewsArticle>>

@@ -1,23 +1,31 @@
-package com.example.cubandroidtest.repository
-
 import com.example.cubandroidtest.data.model.NewsArticle
 import com.example.cubandroidtest.data.remote.ApiService
+import com.example.cubandroidtest.repository.NewsRepository
+import com.example.cubandroidtest.ui.common.BaseResult
+import com.google.gson.Gson
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: ApiService,
 ) : NewsRepository {
+
     override suspend fun getNewsList(
         language: String,
-        country: String?,
         pageSize: Int,
         page: Int
-    ): List<NewsArticle> {
-        val response = apiService.getNewsList(language, country, pageSize, page)
-        return if (response.status == "ok") {
-            response.articles.orEmpty()
+    ): BaseResult<List<NewsArticle>> = try {
+        val response = apiService.getNewsList(language, pageSize, page)
+
+        if (response.isSuccess) {
+            BaseResult.Success(response.articles.orEmpty())
         } else {
-            emptyList()
+            BaseResult.Error(throwable = Exception("Unknown error"),
+                responseBody = Gson().toJson(response))
         }
+
+    } catch (e: retrofit2.HttpException) {
+        BaseResult.Error(e, e.response()?.errorBody()?.string())
+    } catch (e: Exception) {
+        BaseResult.Error(e)
     }
 }

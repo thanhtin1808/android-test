@@ -9,49 +9,49 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cubandroidtest.databinding.FragmentFirstBinding
+import com.example.cubandroidtest.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FirstFragment : Fragment() {
+class HomeFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val firstViewModel: FirstViewModel by viewModels()
-    private val userAdapter = UserAdapter()
+    private val homeViewModel: HomeViewModel by viewModels()
+    private val newsArticleAdapter = NewsArticleAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerView.apply {
-            adapter = userAdapter
+        binding.rvNews.apply {
+            adapter = newsArticleAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-
         observeData()
+        homeViewModel.fetchNews()
     }
 
     private fun observeData() {
-        firstViewModel.newsList.observe(viewLifecycleOwner) { newsList ->
-            userAdapter.submitList(newsList)
+        homeViewModel.newsList.observe(viewLifecycleOwner) { newsList ->
+            newsArticleAdapter.submitList(newsList)
         }
 
-        firstViewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+        homeViewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
-        firstViewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+        homeViewModel.errorMessage.observe(viewLifecycleOwner) { error ->
             if (!error.isNullOrEmpty()) {
-                    Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }
         }
     }
