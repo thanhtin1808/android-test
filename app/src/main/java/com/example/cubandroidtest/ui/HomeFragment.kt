@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var newsArticleAdapter: NewsArticleAdapter
 
     override fun onCreateView(
@@ -43,6 +45,7 @@ class HomeFragment : Fragment() {
 
     private fun initAdapter() {
         newsArticleAdapter = NewsArticleAdapter { newItem ->
+            sharedViewModel.selectArticle(newItem)
             findNavController().navigate(R.id.action_HomeFragment_to_DetailFragment)
         }
 

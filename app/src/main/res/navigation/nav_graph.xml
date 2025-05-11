@@ -18,12 +18,12 @@
     </fragment>
     <fragment
         android:id="@+id/DetailFragment"
-        android:name="com.example.cubandroidtest.ui.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:name="com.example.cubandroidtest.ui.DetailFragment"
+        android:label="@string/detail_fragment_label"
+        tools:layout="@layout/fragment_detail">
 
         <action
-            app:popUpTo="@id/DetailFragment"
+            app:popUpTo="@id/HomeFragment"
             android:id="@+id/action_DetailFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
     </fragment>
