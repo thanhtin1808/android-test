@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -19,8 +20,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField ("String", "API_KEY", "\"a4a78d7333a34826a8efda10d52220c9\"")
+        }
         release {
-            isMinifyEnabled = false
+            buildConfigField ("String", "API_KEY", "\"a4a78d7333a34826a8efda10d52220c9\"")
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -35,25 +40,41 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
-        compose = true
+        buildConfig = true
+        viewBinding = true
     }
 }
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.constraintlayout)
+
+    // Navigation Component
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    // Retrofit + Gson
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // OkHTTP
+    implementation(libs.logging.interceptor)
+
+    // Coroutine
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Glide
+    implementation(libs.glide)
+
 }
