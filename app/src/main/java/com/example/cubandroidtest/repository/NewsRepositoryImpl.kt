@@ -41,8 +41,12 @@ class NewsRepositoryImpl @Inject constructor(
 private fun getFallbackNews() = listOf(
     NewsArticle(
         title = "Spyware Maker NSO Group is Paving a Path Back into Trump's America",
-        urlToImage = "https://biztoc.com/cdn/931/og.png",
-        content = "The Israeli spyware maker, still on the US Commerce Department's bla...",
+        urlToImage = "https://media.wired.com/photos/681e91cbb3a1c53a160e45a8/191:100/w_1280,c_limit/Your-Gear-News-of-the-Week_052025_Lede.jpg",
+        description = "The Global Award for Sustainable Architecture, created in 2006 by architect and scholar Jana Revedin, annually recognizes five architects—or offices—from around the world whose practices are grounded in the principles of sustainable development, participatory…",
+        content = "© Bicubik Photography\\r\\nThe Global Award for Sustainable Architecture, created in 2006 by architect and scholar Jana Revedin, annually recognizes five architectsor officesfrom around the world whose p… [+6977 chars]",
+        author = "Peter Wade",
+        publishedAt = "2025-05-11T20:33:21Z",
+        url = "https://www.wired.com/story/samsung-galaxy-s25-edge-reveal-confirmed-and-lenovo-launches-a-new-3d-laptop-your-gear-news-of-the-week/"
     ),
     NewsArticle(
         title = "Spyware Maker NSO Group is Paving a Path Back into Trump's America",
