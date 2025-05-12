@@ -37,11 +37,49 @@
             android:id="@+id/ivLanguage"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginStart="4dp"
             android:clickable="true"
             android:focusable="true"
-            android:layout_marginStart="4dp"
             android:src="@drawable/ic_change_language" />
 
+    </LinearLayout>
+
+    <View
+        android:id="@+id/vDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lnHeader" />
+
+    <LinearLayout
+        android:id="@+id/lnSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vDivider">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            app:boxStrokeColor="@color/focus_tint_list"
+            app:boxStrokeWidth="2dp"
+            app:cursorColor="@color/white"
+            app:hintTextColor="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/home_search_hint"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -54,7 +92,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lnHeader" />
+        app:layout_constraintTop_toBottomOf="@id/lnSearch" />
 
     <ProgressBar
         android:id="@+id/progressBar"
