@@ -20,9 +20,11 @@ class HomeViewModel @Inject constructor(
         fetchNews()
     }
 
-    private fun fetchNews() {
+    fun fetchNews(language: String = "en", keyword: String? = null) {
+        val finalKeyword = if (keyword.isNullOrBlank()) "news" else keyword
+
         launchSafe {
-            val result = repository.getNewsList(keyword = "bbc")
+            val result = repository.getNewsList(keyword = finalKeyword, language = language)
 
             handleResult(result, onSuccess = { articles ->
                 _newsList.value = articles
