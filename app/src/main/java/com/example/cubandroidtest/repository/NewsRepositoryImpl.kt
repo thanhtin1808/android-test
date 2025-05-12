@@ -15,21 +15,21 @@ class NewsRepositoryImpl @Inject constructor(
         keyword: String,
         language: String,
         pageSize: Int,
-        page: Int
+        page: Int,
     ): BaseResult<List<NewsArticle>> = try {
-//        val response = apiService.getNewsList(
-//            keyword = keyword,
-//            language = language,
-//            pageSize = pageSize,
-//            page = page,
-//        )
-//
-//        if (response.isSuccess) {
-            BaseResult.Success(getFallbackNews())
-//        } else {
-//            BaseResult.Error(throwable = Exception("Unknown error"),
-//                responseBody = Gson().toJson(response))
-//        }
+        val response = apiService.getNewsList(
+            keyword = keyword,
+            language = language,
+            pageSize = pageSize,
+            page = page,
+        )
+
+        if (response.isSuccess) {
+        BaseResult.Success(response.articles.orEmpty())
+        } else {
+            BaseResult.Error(throwable = Exception("Unknown error"),
+                responseBody = Gson().toJson(response))
+        }
 
     } catch (e: HttpException) {
         BaseResult.Error(e, e.response()?.errorBody()?.string())
@@ -38,7 +38,7 @@ class NewsRepositoryImpl @Inject constructor(
     }
 }
 
-private fun getFallbackNews() = listOf(
+private fun getMockupNews() = listOf(
     NewsArticle(
         title = "Spyware Maker NSO Group is Paving a Path Back into Trump's America",
         urlToImage = "https://media.wired.com/photos/681e91cbb3a1c53a160e45a8/191:100/w_1280,c_limit/Your-Gear-News-of-the-Week_052025_Lede.jpg",

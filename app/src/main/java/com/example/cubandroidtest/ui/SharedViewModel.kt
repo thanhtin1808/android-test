@@ -13,6 +13,13 @@ class SharedViewModel @Inject constructor() : ViewModel() {
     private val _selectedArticle = MutableLiveData<NewsArticle>()
     val selectedArticle: LiveData<NewsArticle> get() = _selectedArticle
 
+    private val _selectedLanguage = MutableLiveData("en")
+    val selectedLanguage: LiveData<String> get() = _selectedLanguage
+
+    fun setLanguage(language: String) {
+        _selectedLanguage.value = language
+    }
+
     fun selectArticle(article: NewsArticle) {
         _selectedArticle.value = article
     }

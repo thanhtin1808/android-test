@@ -1,6 +1,7 @@
 package com.example.cubandroidtest.ui
 
 
+import LanguagePickerDialogFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +17,10 @@ import com.example.cubandroidtest.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(){
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
     private val homeViewModel: HomeViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var newsArticleAdapter: NewsArticleAdapter
@@ -41,6 +41,22 @@ class HomeFragment : Fragment() {
 
     private fun initView() {
         initAdapter()
+        binding.tvSelectedLanguage.text = sharedViewModel.selectedLanguage.value
+        binding.ivLanguage.setOnClickListener {
+            showLanguagePickerDialog()
+        }
+    }
+
+    private fun showLanguagePickerDialog() {
+        val dialog =
+            sharedViewModel.selectedLanguage.value?.let {
+                LanguagePickerDialogFragment(selectedLanguage = it) { language ->
+                    sharedViewModel.setLanguage(language)
+                    binding.tvSelectedLanguage.text = language
+                    homeViewModel.fetchNews(language)
+                }
+            }
+        dialog?.show(childFragmentManager, "LanguagePicker")
     }
 
     private fun initAdapter() {
