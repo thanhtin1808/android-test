@@ -5,6 +5,7 @@
     <!--Home Screen-->
     <string name="home_news_title">News</string>
     <string name="home_select_language">Select Language</string>
+    <string name="home_search_hint">Search for articles with any keyword</string>
     <!--Detail Screen-->
     <string name="home_detail_author">Author\n%s</string>
     <string name="home_detail_published_at">Published At\n%s</string>
